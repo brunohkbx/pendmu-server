@@ -1,0 +1,11 @@
+//ItemIndex , ItemID , X, Y,Level, Opt,Luck, Skill,Dur,Exc,NewOpt1,NewOpt2,NewOpt3,NewOpt4,NewOpt5,Cost
+0
+14	13	1	1	0	0	0	0	0	0	255	255	255	255	255	20
+14	14	1	1	0	0	0	0	0	0	255	255	255	255	255	20
+14	15	1	1	0	0	0	0	0	0	255	255	255	255	255	20
+end
+
+//[MobID] [GivePoints]
+1
+
+end
