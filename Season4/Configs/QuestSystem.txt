@@ -1,0 +1,44 @@
+//[1] - Quest Index
+//[2] - is reward item? (0 / 1)
+//[3] - Zen rewarded
+//[4] - Level rewarded
+//[5] - Experienta rewarded
+//[6] - Puncte rewarded
+//[7] - MONSTER ID ( Din monster.txt )
+//[8] - MONSTER LEVEL ( Din monster.txt )
+//[9] - Map ID (Numarul hartii)
+//[10] - Level minim to do quest
+//[11] - How many mobs to kill?
+//[12] - Is MASTER ? ( Questul e doar pentru 3rd class - o sa se dea reward MLPoints + MLLevel + MLExp)
+//[13] - Quest Name
+//[14] - Quest Brieffing
+//NOTE SPECIALE :
+// ##In campul al 14-lea simbolul | reprezinta Spatiu in Mail :)
+//  [--------------------------------------SPACE-----------------------------------]
+// ##la punctele 7 & 8 , monstrul trebuie sa aiba acelasi index si level cu cel din monster.txt 
+// altfel vei omorarii in prostie monstri :))
+//-----------------------------------------------------------------------------------------------------------------------------//
+//	[1]    [2]    [3]  [4]  [5]  [6]  [7]  [8]  [9] [10] [11]     [12]		[13]				[14]   //
+//-----------------------------------------------------------------------------------------------------------------------------//
+0
+	1 	1    10000  5  10000  25    3    2    0    6    5	0	"The Mighty Spider"		"Kill 5 Spider|Map Lorencia|Type /questinfo For Infomation" 
+	2	1    10000  5  10000  25   32   18   3    15    5	0	"The Horror Stone Goblem"	"Kill 5 Stone Goblem|Map Noria|Type /questinfo For Infomation"
+	3	1    10000  5  10000  25    14   19   0    25    10	0	"Kill Skeleton Ghost"	"Kill 10 Skeleton|Map Lorencia|Type /questinfo For Infomation" 		
+	4 	1    10000  5  10000  10    23   24   2    15    10	0	"Nightmare of Hommerd"		"Kill 10 Hommerd|Map Devias|After you done it , come back to me for reward" 
+	5	0    10000  2  10000  10    15   34   1    20    20	0	"The Dungeon - Part1"	"Kill 20 Skeleton Archer|Map Dungeon 2|After you done it , come back to me for reward"
+	6	0    10000  2  10000  10    9    44   1    20    20	0	"The Dungeon - Part2"	"Kill 20 Thunder Lich|Map Dungeon 3|After you done it , come back to me for reward" 		
+	7 	1    1000000  0  10000  10    8    46   1    20    15	0	"The Dungeon - Part3"		"Kill 15 Poison Bull Fighter|Map Dungeon 3|After you done it , come back to me for reward" 
+	8	1    10000  2  10000  10    20   36   2    30    50	0	"Defend Devias Castle"	"Kill 50 Elite Yeti|Map Devias 3|After you done it , come back to me for reward"
+end
+//Rewarduri pentru quest-uri in parte
+//----------------------------------------------------------------------------------------//
+// |NumberOfQuest|Type |Index |Level |Luck |Option |Skill  |Exc   |Option |Name |
+//----------------------------------------------------------------------------------------//
+1
+	1	14	13	0	0	0	0	0 //Jewel Of Bless
+	2	14	13	0	0	0	0	0 //Jewel of Bless
+	3	14	14	0	0	0	0	0 //Jewel of Soul
+	4	13	2	0	0	0	0	0 //Uniria
+	7	14	11	10	0	0	0	0 //Surprise Reward item xD (BOK+3)
+	8	14	14	0	0	0	0	0 //Jewel of Soul
+end 
