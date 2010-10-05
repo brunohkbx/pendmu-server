@@ -1,0 +1,21 @@
+// Syrius - Custom Item Drop Rate
+
+//DropRateConfig[i].Type		= n[0];
+//DropRateConfig[i].Index		= n[1];
+//DropRateConfig[i].Level		= n[2];	
+//DropRateConfig[i].Opt		= n[3];	
+//DropRateConfig[i].Luck		= n[4];	
+//DropRateConfig[i].Skill		= n[5];
+//DropRateConfig[i].Duration	= n[6];	
+//DropRateConfig[i].Rate		= n[7];	
+//DropRateConfig[i].Minlvl	= n[8];	
+//DropRateConfig[i].Maxlvl	= n[9];	
+//DropRateConfig[i].DropMap	= n[10];
+
+//[0]	[1]	[2]	[3]	[4]	[5]	[6]	[7]	[8]	[9]	[10]
+0
+12	15	0	0	0	0	255	30	50	80	-1	//Jewel of Chaos
+15	8	0	0	0	0	255	70	47	66	4	//Scrool Of Evil Spirit
+15	9	0	0	0	0	255	60	47	66	4	//Scrool Of Hell Fire
+12	7	0	0	0	0	255	70	47	66	4	//Orb of TS
+end
