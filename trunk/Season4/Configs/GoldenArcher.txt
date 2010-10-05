@@ -1,0 +1,14 @@
+//Syrius Golden Archer item exchange
+//GaItem[i].Type			= row[0];
+//GaItem[i].Index			= row[1];
+//GaItem[i].Level			= row[2];	
+//GaItem[i].Option			= row[3];	
+//GaItem[i].Luck			= row[4];	
+//GaItem[i].Skill			= row[5];
+//GaItem[i].Duration			= row[6];	
+//GaItem[i].Excellent			= row[7];
+
+//[0]	[1]	[2]	[3]	[4]	[5]	[6]	[7]
+0
+12	15	0	0	0	0	0	0
+end
