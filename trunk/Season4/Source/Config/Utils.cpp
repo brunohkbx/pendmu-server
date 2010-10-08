@@ -45,7 +45,7 @@ int IsExistPetItem(int aIndex)
 
 //CM +15 and other mixes:)
 int gObjGetItemCountInChaosbox(int aIndex, short type) {
-	OBJECTSTRUCT * gObj = (OBJECTSTRUCT*) OBJECT_POINTER (aIndex);
+	GOBJSTRUCT * gObj = (GOBJSTRUCT*) OBJECT_POINTER (aIndex);
 	int count = 0;
 
 	for(unsigned i = 0; i < 32; i++)

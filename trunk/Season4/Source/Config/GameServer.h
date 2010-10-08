@@ -14,7 +14,7 @@
 #include "User.h"
 
 //define for protocol change
-#ifdef GameServer90
+//#ifdef GameServer90
 
 #define DataSend ((void(*)(DWORD PlayerID,PBYTE Packet,DWORD Size)) 0x004B3370)
 #define DataSendB ((void(*)(DWORD,LPSTR,DWORD)) 0x004B3370)
@@ -33,8 +33,9 @@
 #define gObjViewportListProtocolCreate ((void(*)(gObjStruct*)) 0x0052F870)
 #define pReadCommonServerInfo ((void(*)()) 0x00405C6D)
 #define pShopDataLoad ((void(*)()) 0x00406B6D)
-#define ChaosBoxInit ((void(*) (int)) 0x00404EDF)
-#define GCUserChaosBoxSend ((void(*) (int, int)) 0x00406FFF)
+#define ChaosBoxInit ((void(*) (GOBJSTRUCT*)) 0x00404EDF)
+#define GCUserChaosBoxSend ((void(*) (GOBJSTRUCT*, int)) 0x00406FFF)
+//#define ChaosBoxInit ((void(*) (int)) 0x00404EDF) MOTHER FUCKER YOU FUCKER ME UP DUDE !!!!
 #define gObjInventoryDeleteItem ((void(*)(int,int)) 0x51A3E0)
 #define GCInventoryItemDeleteSend ((void(*)(int,int,unsigned char)) 0x00403AE9)
 #define GCSendQuestPrize ((int(*)(int, int, int)) 0x00403472)
@@ -97,7 +98,7 @@
 #define MAX_PLAYERID 9000
 #define GS_ITEMSIZE 0xBC
 
-#endif
+//#endif
 
 #define gObjPlayer 0x1F40
 #define gObjMaxUsr 0x1CE7 
