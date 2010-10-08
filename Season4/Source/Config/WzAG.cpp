@@ -144,8 +144,8 @@ extern "C" _declspec(dllexport) void Load()
 		Duel.Init(); //Setup Duel
 		Read13thItemBag(); //Fixs Ring 40
 		g_Quest.LoadFile("..\\OptionsData\\QuestSystem.txt");
-		MoveReqLoad("..\\Data\\lang\\kor\\movereq(kor).txt"); //Season5 MOVE
-
+		g_MoveReq.LoadFile("..//Data//Lang//Kor//Movereq(kor).txt");
+		g_MoveReq.LoadGate("..//Data//Gate.txt");
 		
 	}
 	else

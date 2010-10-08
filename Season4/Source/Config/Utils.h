@@ -56,7 +56,8 @@ void HookProc(DWORD OriginalOffset, DWORD DestOffset);
 void WriteMemoryInt(DWORD Offset, DWORD bValue, DWORD bValueMax, DWORD OffsetLen);
 
 
-
+int IsExistWingItem(int aIndex);
+int IsExistPetItem(int aIndex);
 
 WORD gObj_GetStr(DWORD PlayerID);
 WORD gObj_GetAgi(DWORD PlayerID);
