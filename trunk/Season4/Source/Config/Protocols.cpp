@@ -242,17 +242,17 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 					}
 					break;
 #ifdef Season5
-						case 0xF6: // Fix Season 5 Char Connect
+				case 0xF6: // Fix Season 5 Char Connect
 		{
-			return;
+			return true;
 		}break;
 
 	case 0xBF: // Season 5 Double Goer Event
 		{
 			if(aRecv[1] == 0x05 && aRecv[3] == 0x0E)
 			{
-				DGEvent.EnterMap(aIndex,(int)aRecv[4]+12);
-				return;
+				//DGEvent.EnterMap(aIndex,(int)aRecv[4]+12);
+				return true;
 			}
 		}break;
 
@@ -261,7 +261,7 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 			if(aRecv[1] == 0x05 && aRecv[3] == 0x01 && aRecv[4] == 0x01)
 			{
 				gObjMoveGate(aIndex,307);
-				return;
+				return true;
 			}
 		}break;
 #endif

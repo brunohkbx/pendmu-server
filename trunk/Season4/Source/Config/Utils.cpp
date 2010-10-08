@@ -30,6 +30,20 @@ void LogLine(char *formatstring,...)
 	fclose(logfile);
 }
 
+#ifdef Season5
+int IsExistWingItem(int aIndex)
+{
+ DWORD pInvOffset = *LPDWORD((*(char**)0x7A5502C)+0x2228*aIndex+0xE7C);
+ return *LPDWORD(pInvOffset + 0x52A);
+}
+
+int IsExistPetItem(int aIndex)
+{
+ DWORD pInvOffset = *LPDWORD((*(char**)0x7A5502C)+0x2228*aIndex+0xE7C);
+ return *LPDWORD(pInvOffset + 0x5E6);
+}
+#endif
+
 void ToHex(unsigned char* out,unsigned char* data,int c_len)
 {
 	string s,t;
