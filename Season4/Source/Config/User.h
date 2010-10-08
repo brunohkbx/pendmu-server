@@ -13,6 +13,8 @@
 //#include "GameServer.h"
 
 #include <vector>
+#include "stdafx.h"
+#include "items.h"
 
 #define gObjSize 0x2228
 #define MIN_PLAYERID 8000
@@ -28,6 +30,7 @@
 #define OBJECT_POINTER(aIndex) ((aIndex * OBJECT_SIZE) + OBJECT_BASE)
 #define OBJECT_TABINDEX(lpObj) ((lpObj - OBJECT_BASE) / OBJECT_SIZE)
 
+#define CS_SET_BOOTS3(x) ( ((x) & 0x0F ) << 4 )
 
 
 
@@ -375,6 +378,9 @@ struct MONSTERKILLINFO
 
 void FireWorksSend(UINT MapNumber, BYTE X, BYTE Y,int Cant);
 void FireWorksSendAll(int Cant);
+void __stdcall JGPGetCharInfoEx(int Loop, unsigned char *DSPacket, unsigned char *toClientPacket);
+void __stdcall gObjViewportPatchExecute(GOBJSTRUCT *lpObj);
+void gObjCharacterWingsSetPreview(short ItemType, unsigned char *CharSet);
 
 BOOL __cdecl gObjGameClose_Func(int aIndex);
 //extern OBJECTSTRUCT *ObjTab;
