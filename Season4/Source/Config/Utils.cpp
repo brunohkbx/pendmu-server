@@ -42,6 +42,30 @@ int IsExistPetItem(int aIndex)
  DWORD pInvOffset = *LPDWORD((*(char**)0x7A5502C)+0x2228*aIndex+0xE7C);
  return *LPDWORD(pInvOffset + 0x5E6);
 }
+unsigned char Role(unsigned char range)
+{
+
+	srand(static_cast<int>(time(NULL)));
+	return (rand() % range);
+
+}
+
+//CM +15 and other mixes:)
+int gObjGetItemCountInChaosbox(int aIndex, short type) {
+	OBJECTSTRUCT * gObj = (OBJECTSTRUCT*) OBJECT_POINTER (aIndex);
+	int count = 0;
+
+	for(unsigned i = 0; i < 32; i++)
+	{
+		if(gObj->pChaosBox[i].m_Type == type)
+			count++;
+	}
+
+	return count;
+}
+
+
+
 #endif
 
 void ToHex(unsigned char* out,unsigned char* data,int c_len)
