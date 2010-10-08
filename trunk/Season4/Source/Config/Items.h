@@ -14,7 +14,24 @@ enum ITEMCREATE_PLACE {
 	CHAOSBOX	= 0xff,
 };
 
+#define SLOT_EMPTY -1
 
+
+enum PLAYER_WARDROBE 
+{
+	WEAPON_01	= 0,	
+	WEAPON_02	= 1,	
+	HELMET		= 2,	
+	ARMOR		= 3,	
+	PANTS		= 4,	
+	GLOVES		= 5,	
+	BOOTS		= 6,	
+	WINGS		= 7,	
+	GUARDIAN	= 8,	
+	PENDANT		= 9,	
+	RING_01		= 10,	
+	RING_02		= 11,	
+};
 
 bool CheckItemInv(DWORD aIndex,WORD ItemID,WORD Level,int ItemAddress);
 typedef struct gObjItemStruct {
