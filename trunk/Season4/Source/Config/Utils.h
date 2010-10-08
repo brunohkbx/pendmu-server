@@ -15,7 +15,7 @@
 
 
 #define GET_ADDR(_func) ((DWORD)&_func)
-
+unsigned char Role(unsigned char range);
 void LogLine(char*formatstring, ...);
 void ToHex(unsigned char* out,unsigned char* data,int c_len);
 
@@ -68,6 +68,7 @@ WORD gObj_GetPoints(DWORD PlayerID);
 
 void *gObj_GetNickDuel (DWORD gObjId);
 
+int gObjGetItemCountInChaosbox(int aIndex, short type);
 
 void CallSkillEffect(DWORD PlayerID,BYTE Skill, BYTE Status,DWORD MobID,int isSkill);
 void CallSkillEffectToMap(DWORD PlayerID,BYTE Skill, BYTE Status,DWORD MobID,int isSkill);
