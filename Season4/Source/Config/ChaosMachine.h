@@ -68,7 +68,7 @@ enum CHAOS_TYPE
 
 void ChaosboxItemsRegardingEx();
 void ChaosboxCombinationEx(int aIndex, unsigned char mixid);
-void ChaosboxSuccess(CItem *prize, int aIndex, CHAOS_TYPE mixid);
+void ChaosboxSuccess(gObjItemStruct *prize, int aIndex, CHAOS_TYPE mixid);
 void ChaosboxFailure(int aIndex, CHAOS_TYPE mixid);
 
 bool ChaosboxCanExecute(int aIndex, CHAOS_TYPE mixid);

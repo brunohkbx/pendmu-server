@@ -77,7 +77,7 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 			/* success */
 			if(Role(100) <= ChaosCfg.DimensionBookSucces)
 			{
-				CItem CBItem;
+				gObjItemStruct CBItem;
 				CBItem.m_Type		= 0x1C6D;
 				CBItem.m_Durability = 255.0;
 				ChaosboxSuccess(&CBItem, aIndex, CHAOS_TYPE_IMPERIAL_BOOK);
@@ -119,7 +119,7 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 			if(Role(100) <= ChaosCfg.Upgrade14Success)
 			{	
 				
-				CItem CBItem;
+				gObjItemStruct CBItem;
 
 				CBItem = gObj->pChaosBox[pChaosNum];
 				CBItem.m_Level		= 14;
@@ -166,7 +166,7 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 			if(Role(100) <= ChaosCfg.Upgrade15Success)
 			{	
 				
-				CItem CBItem;
+				gObjItemStruct CBItem;
 
 				CBItem = gObj->pChaosBox[pChaosNum];
 				CBItem.m_Level		= 15;
@@ -185,10 +185,13 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 	}
 }
 
-void ChaosboxSuccess(CItem *prize, int aIndex, CHAOS_TYPE mixid) 
+void ChaosboxSuccess(gObjItemStruct *prize, int aIndex, CHAOS_TYPE mixid) 
 {	
 	GOBJSTRUCT *gObj = (GOBJSTRUCT*)OBJECT_POINTER(aIndex);
+
 	ChaosBoxInit(gObj);
+
+	//ChaosBoxInit(gObj);
 	gObj->pChaosBox[0] = *prize;
 	GCUserChaosBoxSend(gObj, 0);
 
@@ -200,6 +203,7 @@ void ChaosboxSuccess(CItem *prize, int aIndex, CHAOS_TYPE mixid)
 void ChaosboxFailure(int aIndex, CHAOS_TYPE mixid) 
 {
 	GOBJSTRUCT *gObj = (GOBJSTRUCT*)OBJECT_POINTER(aIndex);
+
 	ChaosBoxInit(gObj);
 	GCUserChaosBoxSend(gObj, 0);
 	PMSG_CHAOSBOX_RESULT Msg = {0xC1, 0x0A, 0x86, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
