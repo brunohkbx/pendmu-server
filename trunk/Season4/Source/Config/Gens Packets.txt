@@ -1,0 +1,20 @@
+/////////////////////////////////////////////////////////////////////////////
+//						 PACKETS
+/////////////////////////////////////////////////////////////////////////////
+//						Joining
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x00, 0x02 } ; //Joined Gen - Vanert - Noria
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x00, 0x01 } ; //Joined Gen - Stuard - Lorencia
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x01, 0x00 } ; //Can't Join Gen - Is Already Joined
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x02, 0x00 } ; //Can't Join Gen - You have leaved Recently
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x03, 0x00 } ; //Can't Join Gen - Need Lvl 50
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x04, 0x00 } ; //Can't Join Gen - Your Guild is Part Of Different Gens
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x05, 0x00 } ; //Can't Join Gen - The Guild Master Is Not Part of The Gens
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x06, 0x00 } ; //Can't Join Gen - Can't Join Gen in Party
+//BYTE Packet[6] = { 0xC1, 0x06, 0xF8, 0x02, 0x07, 0x00 } ; //Can't Join Gen - Your Can't Join a Gens if you are a member of The Guild Alliance. Leave The Guild Alliance And Try Again
+// --------------------------------------------------------
+//						Leaving
+//BYTE buff[5] = {0xC1, 0x05, 0xF8, 0x04, 0x00}; // Successfull Delete Gens
+//BYTE buff[5] = {0xC1, 0x05, 0xF8, 0x04, 0x01}; // You have not Joined The Gens
+//BYTE buff[5] = {0xC1, 0x05, 0xF8, 0x04, 0x02}; // The Guild Master Cannot Leave The Gens
+//BYTE buff[5] = {0xC1, 0x05, 0xF8, 0x04, 0x03}; // You are a member of the different Gens
+// --------------------------------------------------------

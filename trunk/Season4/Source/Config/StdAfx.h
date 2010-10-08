@@ -35,6 +35,7 @@
 using namespace std;
 //#include <winsock2.h>
 #include "Global.h"
+#include "Common.h"
 #pragma comment(lib,"ws2_32.lib")
 
 
