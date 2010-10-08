@@ -15,7 +15,6 @@
 
 
 #define GET_ADDR(_func) ((DWORD)&_func)
-unsigned char Role(unsigned char range);
 void LogLine(char*formatstring, ...);
 void ToHex(unsigned char* out,unsigned char* data,int c_len);
 

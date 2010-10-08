@@ -20,7 +20,7 @@
 #include "NPC.h"
 #include "Structure.h"
 #include "CQuestSystem.h"
-
+#include "ChaosMachine.h"
 
 
 BYTE RecvTable[256]  =  {
@@ -242,28 +242,270 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 					}
 					break;
 #ifdef Season5
-				case 0xF6: // Fix Season 5 Char Connect
-		{
+		case 0x86: // Chaos Machine (New Wing Mix)
+		ChaosboxCombinationEx(aIndex,aRecv[3]);
+		break;
+		//IN WORK - Imperial Guardian and Double Goer EVENT PROTOCOLS
+		/*	case 0xF7:		
+			Imperial.CheckCanEnter(aIndex);
 			return true;
-		}break;
-
+		break;
 	case 0xBF: // Season 5 Double Goer Event
 		{
+
 			if(aRecv[1] == 0x05 && aRecv[3] == 0x0E)
 			{
-				//DGEvent.EnterMap(aIndex,(int)aRecv[4]+12);
+				DoubleGoer.EnterDoubleGoer(aIndex,(int)aRecv[4]+12);
 				return true;
 			}
+			
 		}break;
-
-	case 0xF7: // Season 5 Empire Guardian Event
-		{
-			if(aRecv[1] == 0x05 && aRecv[3] == 0x01 && aRecv[4] == 0x01)
+	case 0xDC: //Can't Kill Gate, while Event not started, or in standby. ^^
+			if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
+			{	
+				return true;
+			}
+			else if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 1)
 			{
-				gObjMoveGate(aIndex,307);
+				for(int i=0;i<ImperialGateCfg.nGateOfEvent;i++)
+				{	
+					if(ImperialGateCfg.GatesID[i] != 0)
+					{
+						if((aRecv[4] + aRecv[3] * 256) == ImperialGateCfg.GatesID[i]  && ImperialGateCfg.GatesNum[i] != 1)
+						{
+						//Messages.outYellow(aIndex,"Attack Gate : %d %d",(aRecv[4] + aRecv[3] * 256), ImperialGateCfg.GatesID[i]);
+						return true;
+						}
+					}
+				}
+				//Messages.outYellow(aIndex,"Attack Mob : %d",(aRecv[4] + aRecv[3] * 256));
+			}
+		break;
+	case 0x19: //Can't Kill Gate, while Event not started, or in standby. ^^
+		if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
+			{	
 				return true;
 			}
-		}break;
+		else if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 1)
+			{
+				for(int i=0;i<ImperialGateCfg.nGateOfEvent;i++)
+				{	
+				if(ImperialGateCfg.GatesID[i] != 0)
+					{
+						if((aRecv[6] + aRecv[5] * 256) == ImperialGateCfg.GatesID[i]  && ImperialGateCfg.GatesNum[i] != 1)
+						{
+						//Messages.outYellow(aIndex,"Attack Gate : %d %d",(aRecv[6] + aRecv[5] * 256), ImperialGateCfg.GatesID[i]);
+						return true;
+						}
+					}
+				}
+			}
+		break;
+	case 0x10: //Can't Kill Gate, while Event not started, or in standby. ^^
+		if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
+			{	
+				return true;
+			}
+		else if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 1)
+			{	
+				for(int i=0;i<ImperialGateCfg.nGateOfEvent;i++)
+				{	
+					if(ImperialGateCfg.GatesID[i] != 0)
+					{
+						if((aRecv[10] + aRecv[9] * 256) == ImperialGateCfg.GatesID[i]  && ImperialGateCfg.GatesNum[i] != 1)
+						{
+						//Messages.outYellow(aIndex,"Attack Gate : %d %d",(aRecv[10] + aRecv[9] * 256), ImperialGateCfg.GatesID[i]);
+						return true;
+						}
+					}
+				}
+			}
+		break;
+	case 0x1E: //Can't Kill Gate, while Event not started, or in standby. ^^
+		if(Imperial.EventDay == 1)
+			{	
+				if(gObj->MapNumber == 69)
+				{
+					if(gObj->Y >= 52 && (gObj->X > 230 && gObj->X < 236) && Imperial.CanUseTwisting == 0) //Gate 2
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 77 && gObj->Y <= 82) && (gObj->X >= 216 && gObj->X <= 219) && Imperial.CanUseTwisting == 0) //Gate 3
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 22 && gObj->Y <= 29) && (gObj->X >= 193 && gObj->X <= 197) && Imperial.CanUseTwisting == 0) //Gate 4
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 22 && gObj->Y <= 29) && (gObj->X >= 166 && gObj->X <= 170) && Imperial.CanUseTwisting == 0) //Gate 5
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 50 && gObj->Y <= 70) && (gObj->X >= 152 && gObj->X <= 157) && Imperial.CanUseTwisting == 0) //Gate 6
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 76 && gObj->Y <= 80) && (gObj->X >= 178 && gObj->X <= 184) && Imperial.CanUseTwisting == 0) //Gate 7
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+				}
+			}
+		if(Imperial.EventDay == 2)
+			{	
+				if(gObj->MapNumber == 70)
+				{
+					if((gObj->Y >= 61 && gObj->Y <= 68) && (gObj->X > 50 && gObj->X < 54) && Imperial.CanUseTwisting == 0) //Gate 2
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 63 && gObj->Y <= 66) && (gObj->X >= 19 && gObj->X <= 21) && Imperial.CanUseTwisting == 0) //Gate 3
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 90 && gObj->Y <= 92) && (gObj->X >= 34 && gObj->X <= 39) && Imperial.CanUseTwisting == 0) //Gate 4
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 114 && gObj->Y <= 116) && (gObj->X >= 38 && gObj->X <= 45) && Imperial.CanUseTwisting == 0) //Gate 5
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 151 && gObj->Y <= 153) && (gObj->X >= 53 && gObj->X <= 57) && Imperial.CanUseTwisting == 0) //Gate 6
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 108 && gObj->Y <= 113) && (gObj->X >= 107 && gObj->X <= 109) && Imperial.CanUseTwisting == 0) //Gate 7
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+				}
+			}
+		if(Imperial.EventDay == 3)
+			{	
+				if(gObj->MapNumber == 71)
+				{
+					if((gObj->Y >= 190 && gObj->Y <= 195) && (gObj->X > 119 && gObj->X < 122) && Imperial.CanUseTwisting == 0) //Gate 2
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 192 && gObj->Y <= 198) && (gObj->X >= 89 && gObj->X <= 92) && Imperial.CanUseTwisting == 0) //Gate 3
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 131 && gObj->Y <= 133) && (gObj->X >= 220 && gObj->X <= 226) && Imperial.CanUseTwisting == 0) //Gate 4
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 157 && gObj->Y <= 159) && (gObj->X >= 220 && gObj->X <= 226) && Imperial.CanUseTwisting == 0) //Gate 5
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 190 && gObj->Y <= 192) && (gObj->X >= 220 && gObj->X <= 226) && Imperial.CanUseTwisting == 0) //Gate 6
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 215 && gObj->Y <= 217) && (gObj->X >= 165 && gObj->X <= 170) && Imperial.CanUseTwisting == 0) //Gate 7
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+				}
+			}
+		if(Imperial.EventDay == 4)
+			{	
+				if(gObj->MapNumber == 72)
+				{
+					if((gObj->Y >= 66 && gObj->Y <= 70) && (gObj->X >= 50 && gObj->X <= 52) && Imperial.CanUseTwisting == 0) //Gate 2
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 92 && gObj->Y <= 90) && (gObj->X >= 30 && gObj->X <= 35) && Imperial.CanUseTwisting == 0) //Gate 3
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 174 && gObj->Y <= 176) && (gObj->X >= 31 && gObj->X <= 37) && Imperial.CanUseTwisting == 0) //Gate 4
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 188 && gObj->Y <= 194) && (gObj->X >= 50 && gObj->X <= 52) && Imperial.CanUseTwisting == 0) //Gate 5
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 190 && gObj->Y <= 192) && (gObj->X >= 220 && gObj->X <= 226) && Imperial.CanUseTwisting == 0) //Gate 6
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 129 && gObj->Y <= 135) && (gObj->X >= 155 && gObj->X <= 157) && Imperial.CanUseTwisting == 0) //Gate 7
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 129 && gObj->Y <= 135) && (gObj->X >= 195 && gObj->X <= 197) && Imperial.CanUseTwisting == 0) //Gate 8
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 157 && gObj->Y <= 159) && (gObj->X >= 222 && gObj->X <= 227) && Imperial.CanUseTwisting == 0) //Gate 9
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+
+					if((gObj->Y >= 21 && gObj->Y <= 28) && (gObj->X >= 214 && gObj->X <= 216) && Imperial.CanUseTwisting == 0) //Gate 10
+					{
+						if(aRecv[4] == 0x29) return true;
+					}
+				}
+			}
+		if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
+			{	
+				if(aRecv[4] == 0x29) return true;
+			}
+		//else if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 1)
+		//	{   
+		//		if(aRecv[4] == 0x29) return true;
+		//	}
+		break;
+	case 0xD7: //Can't Kill Gate, while Event not started, or in standby. ^^
+		if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
+			{	
+				return true;
+			}
+		else if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 1)
+			{
+				for(int i=0;i<ImperialGateCfg.nGateOfEvent;i++)
+				{	
+					if(ImperialGateCfg.GatesID[i] != 0)
+					{
+						if((aRecv[10] + aRecv[9] * 256) == ImperialGateCfg.GatesID[i]  && ImperialGateCfg.GatesNum[i] != 1)
+						{
+						//Messages.outYellow(aIndex,"Attack Gate : %d %d",(aRecv[10] + aRecv[9] * 256), ImperialGateCfg.GatesID[i]);
+						return true;
+						}
+					}
+				}
+			}
+		break; */
 #endif
 				}
 			}

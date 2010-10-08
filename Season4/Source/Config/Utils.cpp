@@ -42,13 +42,6 @@ int IsExistPetItem(int aIndex)
  DWORD pInvOffset = *LPDWORD((*(char**)0x7A5502C)+0x2228*aIndex+0xE7C);
  return *LPDWORD(pInvOffset + 0x5E6);
 }
-unsigned char Role(unsigned char range)
-{
-
-	srand(static_cast<int>(time(NULL)));
-	return (rand() % range);
-
-}
 
 //CM +15 and other mixes:)
 int gObjGetItemCountInChaosbox(int aIndex, short type) {

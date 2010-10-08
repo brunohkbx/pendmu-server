@@ -48,7 +48,7 @@ void __declspec(naked) ChaosboxItemsRegardingEx()
 
 void ChaosMachineLoadConfig()
 {	
-	char FileName[] = "..//Season5_ChaosMachine.ini";
+	char FileName[] = "..//OptionsData//Season5_ChaosMachine.ini";
 	ChaosCfg.DimensionBookSucces = GetPrivateProfileInt("ChaosMachine", "DimensionBookSuccess", 100, FileName);
 	ChaosCfg.DimensionBookPrice = GetPrivateProfileInt("ChaosMachine", "DimensionBookPrice", 1000000, FileName);
 	ChaosCfg.Upgrade14Success = GetPrivateProfileInt("ChaosMachine", "Upgrade14Success", 30, FileName);
@@ -188,7 +188,6 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 void ChaosboxSuccess(CItem *prize, int aIndex, CHAOS_TYPE mixid) 
 {	
 	GOBJSTRUCT *gObj = (GOBJSTRUCT*)OBJECT_POINTER(aIndex);
-	
 	ChaosBoxInit(gObj);
 	gObj->pChaosBox[0] = *prize;
 	GCUserChaosBoxSend(gObj, 0);
