@@ -11,6 +11,8 @@ typedef struct CHAOSMACHINE {
 	int Upgrade14Price;
 	int Upgrade15Success;
 	int Upgrade15Price;
+	int SilverBoxSuccessRate;
+	int GoldenBoxSuccessRate;
 } CHAOSMACHINESTRUCT;
 
 extern CHAOSMACHINESTRUCT ChaosCfg;
@@ -63,7 +65,9 @@ enum CHAOS_TYPE
   CHAOS_TYPE_THIRD_WING											= 0x27,
   CHAOS_TYPE_IMPERIAL_BOOK									= 0x2E,
   CHAOS_TYPE_UPGRADE_14										= 0x31,
-  CHAOS_TYPE_UPGRADE_15										= 0x32
+  CHAOS_TYPE_UPGRADE_15										= 0x32,
+  CHAOS_TYPE_SILVER_BOX										= 0x2F,
+  CHAOS_TYPE_GOLDEN_BOX										= 0x2F
 };
 
 void ChaosboxItemsRegardingEx();

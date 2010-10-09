@@ -33,6 +33,9 @@
 #include "CQuestSystem.h"
 #include "MoveReq.h"
 #include "MedusaEvent.h"
+#include "ChaosMachine.h"
+#include "ImperialEvent.h"
+
 
 DROPRATES					DropRateConfig[1000]; 
 BOOL						bDropRateConfig;
@@ -148,7 +151,8 @@ extern "C" _declspec(dllexport) void Load()
 		g_MoveReq.LoadFile("..//Data//Lang//Kor//Movereq(kor).txt");
 		g_MoveReq.LoadGate("..//Data//Gate.txt");
 		Swamp.SwampOfPeaceStart(); //Medusa Event hook
-		
+		Imperial.Init();
+		ChaosMachineLoadConfig();
 	}
 	else
 	{

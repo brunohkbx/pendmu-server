@@ -1,0 +1,16 @@
+// GS gObjDel function
+#define gObjDelg ((void(*)(int aIndex))0x00403AE4)
+
+void gObjDel(int aIndex)
+{
+	gObjDelg(aIndex);
+}
+
+PROTOCOL CORE:
+   case 0x18:
+	if(aLen > 5)
+	{
+	     gObjDel(aIndex);
+	}
+break;
+
