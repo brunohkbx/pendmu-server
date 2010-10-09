@@ -53,9 +53,7 @@ void NPCTalkEx(DWORD aIndex, DWORD aDestIndex)
 			g_Quest.NPCTalk1(nObj,aIndex);
 		}
 
-
-
-
+//Imperial fort npc talk
 		 if (nObj->Class == 522)
 		{	
 		//C3 0A 30 24 XX XX XX XX XX XX - Imperial Fort
