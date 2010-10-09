@@ -22,6 +22,7 @@
 #include "CQuestSystem.h"
 #include "ChaosMachine.h"
 #include "MoveReq.h"
+#include "ImperialEvent.h"
 
 BYTE RecvTable[256]  =  {
 		0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F,
@@ -399,11 +400,11 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 		ChaosboxCombinationEx(aIndex,aRecv[3]);
 	break;
 		//IN WORK - Imperial Guardian and Double Goer EVENT PROTOCOLS
-		/*	case 0xF7:		
+			case 0xF7:		
 			Imperial.CheckCanEnter(aIndex);
 			return true;
 		break;
-	case 0xBF: // Season 5 Double Goer Event
+/*	case 0xBF: // Season 5 Double Goer Event
 		{
 
 			if(aRecv[1] == 0x05 && aRecv[3] == 0x0E)
@@ -412,7 +413,7 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 				return true;
 			}
 			
-		}break;
+		}break; */
 	case 0xDC: //Can't Kill Gate, while Event not started, or in standby. ^^
 			if(gObj->MapNumber == Imperial.EventMap && ImperialMain.UserIsInFort[GET_USER_INDEX(aIndex)] == 1 && ImperialMain.Status == 0)
 			{	
@@ -658,7 +659,7 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 					}
 				}
 			}
-		break; */
+		break;
 
 #endif
 		case 0x30:
