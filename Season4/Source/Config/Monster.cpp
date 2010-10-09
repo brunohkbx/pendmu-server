@@ -15,7 +15,7 @@
 #include "Log.h"
 #include "PCPoints.h"
 #include "CQuestSystem.h"
-
+#include "ImperialEvent.h"
 
 void __cdecl MonsterDie(LPGOBJSTRUCT lpObjOfMonster, LPGOBJSTRUCT lpObjOfPlayer)
 {
@@ -30,6 +30,35 @@ void __cdecl MonsterDie(LPGOBJSTRUCT lpObjOfMonster, LPGOBJSTRUCT lpObjOfPlayer)
 	//Going to the Drop function (bug Fix)
 	gObjMonsterDieGiveItem(lpObjOfMonster, lpObjOfPlayer);
 	
+	//Imperial.MonsterManager(lpObjOfPlayer->m_Index,(aSend[4] + aSend[3] * 256));
+	
+	//=====================//
+	//Imperial Event Drops //
+	//=====================//
+	if((lpObjOfMonster->Class == 20 && lpObjOfMonster->MapNumber == Imperial.EventMap) && (Imperial.ImperialIsRun == 1))
+	{	
+		ImperialMobCfg.nMonsterOfEvent--;
+
+		//Messages.outNormal(aIndex,"[Imperial Fort] Killed Mob. [%d]",ImperialMobCfg.nMonsterOfEvent);
+		if(ImperialMobCfg.nMonsterOfEvent > 0)
+		{
+			//return ;
+		}
+	}
+	
+	if((lpObjOfMonster->Class == 525 && lpObjOfMonster->MapNumber == Imperial.EventMap) || (lpObjOfMonster->Class == 524 && lpObjOfMonster->MapNumber == Imperial.EventMap))
+	{
+		return; //GCStateInfoSend((DWORD)pObj, 0, 0);
+	}
+
+
+	if((lpObjOfMonster->Class == 528 && lpObjOfMonster->MapNumber == Imperial.EventMap))
+	{
+		return; //GCStateInfoSend((DWORD)pObj, 0, 0);
+	}
+
+	//Log.outError("[Imperial Fort] MonsterItemDrop");
+
 	
 }
 

@@ -5,6 +5,8 @@
 
 CHAOSMACHINESTRUCT ChaosCfg;
 
+
+
 void __declspec(naked) ChaosboxItemsRegardingEx() 
 {
 	_asm 
@@ -37,6 +39,22 @@ void __declspec(naked) ChaosboxItemsRegardingEx()
 		cmp ecx, 0x1C6C;
 		je ItemAllowed;
 
+		// Sealed Golden Box
+		cmp ecx, 0x1C79;
+		je ItemAllowed;
+
+		// Sealed Silver Box
+		cmp ecx, 0x1C7A;
+		je ItemAllowed;
+
+		// Silver Key
+		cmp ecx, 0x1C70;
+		je ItemAllowed;
+
+		// Golden Key
+		cmp ecx, 0x1C71;
+		je ItemAllowed;
+
 		mov edi, CHAOS_ADR_RETURN;
 		jmp edi;
 
@@ -55,6 +73,9 @@ void ChaosMachineLoadConfig()
 	ChaosCfg.Upgrade14Price = GetPrivateProfileInt("ChaosMachine", "Upgrade14Price", 10000000, FileName);
 	ChaosCfg.Upgrade15Success = GetPrivateProfileInt("ChaosMachine", "Upgrade15Success", 30, FileName);
 	ChaosCfg.Upgrade15Price = GetPrivateProfileInt("ChaosMachine", "Upgrade15Price", 12000000, FileName);
+	ChaosCfg.SilverBoxSuccessRate = GetPrivateProfileInt("ChaosMachine", "SilverBoxSuccesRate", 100 , FileName);
+	ChaosCfg.GoldenBoxSuccessRate = GetPrivateProfileInt("ChaosMachine", "GoldenBoxSuccesRate", 100 , FileName);
+
 }
 
 void ChaosboxCombinationEx(int aIndex, unsigned char mixid) 
@@ -182,8 +203,33 @@ void ChaosboxCombinationEx(int aIndex, unsigned char mixid)
 				ChaosboxFailure(aIndex, CHAOS_TYPE_UPGRADE_15);
 		}
 		break;
-	}
+		//NEW
+		case CHAOS_TYPE_SILVER_BOX:
+			{
+				if(!ChaosboxCanExecute(aIndex, CHAOS_TYPE_SILVER_BOX))
+				{
+					ChaosboxFailure(aIndex, CHAOS_TYPE_SILVER_BOX);
+					break;
+				}
+				else
+				{
+					if(Role(100) <= ChaosCfg.SilverBoxSuccessRate)
+					{
+						gObjItemStruct CBItem;
+						CBItem.m_Type = 0x100C; //TESTING ITEM
+						CBItem.m_Durability = 255.0;
+						ChaosboxSuccess(&CBItem, aIndex, CHAOS_TYPE_SILVER_BOX);
+						gObj->Money = gObj->Money - 1000000;
+						GCMoneySend(aIndex, gObj->Money);
+					}
+					else
+						ChaosboxFailure(aIndex,CHAOS_TYPE_SILVER_BOX);
+				}
+			}break;
+		}
 }
+		
+
 
 void ChaosboxSuccess(gObjItemStruct *prize, int aIndex, CHAOS_TYPE mixid) 
 {	
@@ -250,6 +296,24 @@ bool ChaosboxCanExecute(int aIndex, CHAOS_TYPE mixid)
 				return true;
 		}
 		return false;
+	}
+
+	if (mixid == CHAOS_TYPE_SILVER_BOX)
+	{
+		if (gObjGetItemCountInChaosbox(aIndex,0x1C70) > 0 && gObjGetItemCountInChaosbox(aIndex,0x1C7A) > 0)
+		{
+			if(gObj->Money >= 1000000)
+				return true;
+		}
+	}
+// ---------------------------------------------
+	if (mixid == CHAOS_TYPE_GOLDEN_BOX)
+	{
+		if (gObjGetItemCountInChaosbox(aIndex,0x1C71) > 0 && gObjGetItemCountInChaosbox(aIndex,0x1C79) > 0)
+		{
+			if(gObj->Money >= 1000000)
+				return true;
+		}
 	}
 	return false;
 }
