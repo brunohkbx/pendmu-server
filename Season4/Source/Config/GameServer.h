@@ -131,6 +131,7 @@
 #define gObjInventory 0xE7C
 #define gObjWarehouse 0xEB4
 
+#define GET_USER_INDEX(aIndex) ( 9000 - aIndex )
 
 
 
