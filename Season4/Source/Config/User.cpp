@@ -150,4 +150,35 @@ void gObjCharacterWingsSetPreview(short ItemType, unsigned char *CharSet,int Typ
 		
 		CharSet[16] = PreviewPet;
 	}
+	else if(Type == WINGS)
+	{
+		//GOBJSTRUCT *pObj = (GOBJSTRUCT*)OBJECT_POINTER(aIndex);
+		GOBJSTRUCT *pObj = (GOBJSTRUCT*)OBJECT_POINTER(lpObj->m_Index); //hope it works
+		switch(ItemType)
+		{
+		case 0x1882://DL Mini-Wing
+		pObj->CharSet[5] += 0x04;
+		pObj->CharSet[17] |= 0x20;
+		break;
+
+	case 0x1883://SUM Mini-Wing
+		pObj->CharSet[17] |= 0x40;
+		break;
+
+	case 0x1884://ELF Mini-Wing
+		pObj->CharSet[5] += 0x0C;
+		pObj->CharSet[17] |= 0x60;
+		break;
+
+	case 0x1885://DW Mini-Wing
+		pObj->CharSet[5] += 0x08;
+		pObj->CharSet[17] |= 0x80;
+		break;
+
+	case 0x1886://DK Mini-Wing
+		pObj->CharSet[5] += 0x04;
+		pObj->CharSet[17] |= 0xA0;
+		break;
+	}
+	}
 }
