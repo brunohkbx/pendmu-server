@@ -108,12 +108,12 @@ void __stdcall JGPGetCharInfoEx(int Loop, unsigned char *DSPacket, unsigned char
 	}
 }
 
-void __stdcall gObjViewportPatchExecute(GOBJSTRUCT *lpObj) {
+/*void __stdcall gObjViewportPatchExecute(GOBJSTRUCT *lpObj) {
 
 	if(lpObj->pInventory[GUARDIAN].m_Type != SLOT_EMPTY)
 		gObjCharacterWingsSetPreview(lpObj->pInventory[GUARDIAN].m_Type, lpObj->CharSet, GUARDIAN,lpObj);
 }
-
+*/
 void gObjCharacterWingsSetPreview(short ItemType, unsigned char *CharSet,int Type,GOBJSTRUCT *lpObj) 
 {	
 	if(Type == GUARDIAN)

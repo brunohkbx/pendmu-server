@@ -13,8 +13,8 @@
 //#include "GameServer.h"
 
 #include <vector>
-#include "stdafx.h"
-#include "items.h"
+
+
 
 #define gObjSize 0x2228
 #define MIN_PLAYERID 8000
@@ -367,7 +367,6 @@ public:
 };
 // <size 0x50>
 
-
 // new
 struct MONSTERKILLINFO
 {
@@ -379,7 +378,7 @@ struct MONSTERKILLINFO
 void FireWorksSend(UINT MapNumber, BYTE X, BYTE Y,int Cant);
 void FireWorksSendAll(int Cant);
 void __stdcall JGPGetCharInfoEx(int Loop, unsigned char *DSPacket, unsigned char *toClientPacket);
-void __stdcall gObjViewportPatchExecute(GOBJSTRUCT *lpObj);
+//void __stdcall gObjViewportPatchExecute(GOBJSTRUCT *lpObj);
 void gObjCharacterWingsSetPreview(short ItemType, unsigned char *CharSet);
 
 BOOL __cdecl gObjGameClose_Func(int aIndex);
