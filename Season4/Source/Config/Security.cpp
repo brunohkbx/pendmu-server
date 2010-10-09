@@ -3,14 +3,13 @@
 #include "Security.h"
 
 
-#define MacCount 2
+#define MacCount 1
 bool CheckingMAC(LPCSTR MacID)
 {
 	char ClientsMacs[MacCount][18] =
 	{
-		"00-0E-50-F1-6F-FA", //Syrius Server
-		"00-1F-D0-9F-F8-C3" //denied
-		//"00-13-8F-C0-16-15" // Lordy
+		"40-61-86-F3-D7-87" //Syrius Server
+
 	};
 
 	for(int x=0; x<MacCount; x++)
