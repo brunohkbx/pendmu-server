@@ -32,6 +32,7 @@
 #include "Security.h"
 #include "CQuestSystem.h"
 #include "MoveReq.h"
+#include "MedusaEvent.h"
 
 DROPRATES					DropRateConfig[1000]; 
 BOOL						bDropRateConfig;
@@ -146,6 +147,7 @@ extern "C" _declspec(dllexport) void Load()
 		g_Quest.LoadFile("..\\OptionsData\\QuestSystem.txt");
 		g_MoveReq.LoadFile("..//Data//Lang//Kor//Movereq(kor).txt");
 		g_MoveReq.LoadGate("..//Data//Gate.txt");
+		Swamp.SwampOfPeaceStart(); //Medusa Event hook
 		
 	}
 	else
