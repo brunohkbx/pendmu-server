@@ -30,7 +30,7 @@ void NPCTalkEx(DWORD aIndex, DWORD aDestIndex)
 {
 	GOBJSTRUCT * gObj = (GOBJSTRUCT*)OBJECT_POINTER(aIndex);
 	GOBJSTRUCT * nObj = (GOBJSTRUCT*)OBJECT_POINTER(aDestIndex);
-	
+	bool bResult = false;
 
 	if(nObj->Class == 236 && Config.IsGADrop == 1)
 	{
@@ -52,10 +52,36 @@ void NPCTalkEx(DWORD aIndex, DWORD aDestIndex)
 		{
 			g_Quest.NPCTalk1(nObj,aIndex);
 		}
+
+
+
+
+		 if (nObj->Class == 522)
+		{	
+		//C3 0A 30 24 XX XX XX XX XX XX - Imperial Fort
+		BYTE Packet[4] = {0xC3, 0x0A, 0x30, 0x22};
+				
+		Packet[4] = 0x00; //07
+		Packet[5] = 0x00; //6D
+		Packet[6] = 0x00; //A6
+		Packet[7] = 0x00; //0E
+		Packet[8] = 0x00;
+		Packet[9] = 0x00;
+
+		DataSend(aIndex, &Packet[0], Packet[1]);
+
+		Log.outNormal("[%s][%s] Click on Jerry The Adviser",gObj->AccountID,gObj->Name);
+		bResult = true;
+	}
+	else
+	{
+		bResult = false;
+	}
 	//if(nObj->Class == 465)
 	//{
 	//	SantaClaus(aIndex);
 	//}
+
 }
 void GoldenArcher(DWORD aIndex,DWORD ItemAddress)
 {

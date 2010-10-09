@@ -26,7 +26,7 @@ SwampPeace::~SwampPeace()
 // -------------------------------------------------------------
 void SwampPeace::LoadSwampConfig()
 {
-	char EventFile[] = "..//OptionsData//Event_Medusa.ini";
+	char EventFile[] = "..//OptionsData//Events//Event_Medusa.ini";
     Swamp.SwampEnabled                    = GetPrivateProfileInt("SwampOfPeace","SwampOfPeaceEventEnabled",1,EventFile);
     Swamp.SwampMinutes                    = GetPrivateProfileInt("SwampOfPeace","SwampOfPeaceEventDuration",10,EventFile)*60;
     if (Swamp.SwampEnabled == 1)
