@@ -1372,12 +1372,12 @@ void ImperialFort_StartStandBy(void * lpParam)
 
 void ImperialEvent::MonsterManager(int aIndex, int mIndex)
 {
-	OBJECTSTRUCT *mObj = (OBJECTSTRUCT*) OBJECT_POINTER (mIndex);
-	OBJECTSTRUCT *pObj = (OBJECTSTRUCT*) OBJECT_POINTER (aIndex);
+	GOBJSTRUCT *mObj = (GOBJSTRUCT*) OBJECT_POINTER (mIndex);
+	GOBJSTRUCT *pObj = (GOBJSTRUCT*) OBJECT_POINTER (aIndex);
 
 	for(int i=MIN_PLAYERID;i<MAX_PLAYERID;i++)
 	{	
-		OBJECTSTRUCT *mObj = (OBJECTSTRUCT*) OBJECT_POINTER (i);
+		GOBJSTRUCT *mObj = (GOBJSTRUCT*) OBJECT_POINTER (i);
 		if((mIndex == i && mObj->MapNumber == Imperial.EventMap) && ( Imperial.ImperialIsRun == 1 )) 
 		{ 
 			Imperial.EventClearIndex(i); 
