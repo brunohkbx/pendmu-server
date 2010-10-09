@@ -241,10 +241,163 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 						return true;
 					}
 					break;
+
+				}
+			}
+		
+			else if(Config.IsProtocol==1) //JPN
+			{
+				switch(BYTE(protoNum))
+				{
+					/*
+					case 0xD7:
+						protoNum = 0xD7;
+						aRecv[2] = 0xD7;
+						break;
+						*/
+					case 0xD0:
+						if(aRecv[1]== 0x04&&aRecv[3] == 0x06)
+						{
+							PCPoint.OpenShop(aIndex);
+							return true;
+						}
+						if(aRecv[3] == 0x05)
+						{
+							PCPoint.BuyItem(aIndex,aRecv[4]);
+							return true;
+						}
+						break;
+				}
+			}
+			else if(Config.IsProtocol == 2) //VTM
+			{
+				switch(BYTE(protoNum))
+				{
+					case 0x10:
+						protoNum = 0xD7;
+						aRecv[2] = 0xD7;
+						break;
+				}
+			}
+
+			else if(Config.IsProtocol == 3) //ENG
+			{
+				switch(BYTE(protoNum))
+				{
+					case 0xDB:
+						protoNum = 0xD7;
+						aRecv[2] = 0xD7;
+						break;
+				}
+			}
+
+			else if(Config.IsProtocol == 4) //CHS
+			{
+				switch(BYTE(protoNum))
+				{
+				case 0x1D:
+					protoNum = 0xD7;
+					aRecv[2] = 0xD7;
+					break;
+				}
+			}
+			break;
+	}
+
+
+		switch(BYTE(protoNum))
+		{
+			case 0x00: //Move & chat Protocol
+			{
+				ChatSystem.ChatDataSend(aIndex,aRecv);				
+			}		
+			break;	
+		
+		case 0x03:
+			{
+				int Map = (int)gObj_GetMap(aIndex);
+				if(Map == 64)gObjMoveGate_JMP(aIndex, 294);
+
+				//SetPCPoint(aIndex);
+				//PCPoint.SQLGetPoints(aIndex);
+				PCPoint.GetInfo(aIndex);
+				GCServerMsgStringSend(ConnectNotice1,aIndex,0);
+				GCServerMsgStringSend(ConnectNotice2,aIndex,0);
+				GCServerMsgStringSend(ConnectNotice3,aIndex,0);
+				g_Quest.LoadQuest(aIndex);
+				conLog.ConsoleOutputDT("[%s][%s][%d] Connect.",gObj->AccountID,gObj->Name,aIndex);
 #ifdef Season5
-		case 0x86: // Chaos Machine (New Wing Mix)
-		ChaosboxCombinationEx(aIndex,aRecv[3]);
+		if(gObj->pInventory[RING_01].m_Type == 0x1A7A || gObj->pInventory[RING_02].m_Type == 0x1A7A) //SKeleton Ring
+		{
+			gObj->m_Change = 14;
+			gObjViewportListProtocolCreate(gObj);
+		}
+
+
+				//Load Quest Pending
+				BYTE Packet3[6]={0xC1,0x05,0xF6,0x0F,0x255,0x00};
+				BYTE Packet4[6]={0xC1,0x05,0xF7,0x0F,0x255,0x00};
+
+				Log.outError("Season 5 Quest System");
+				DataSend(aIndex, &Packet3[0], Packet3[1]);
+				DataSend(aIndex, &Packet4[0], Packet4[1]);
+		
+#endif
+			
+			}
+			break;
+#ifdef Season5
+			
+
+	//case 0x06:
+	//	CGLevelUpPointAdd((PMSG_LVPOINTADD *)aRecv, aIndex);
+	//	break;
+	case 0xF1://Login protocol (Season 5)
+		{
+			aRecv[1] -= 0x02;
+			aLen = aRecv[1];
+			for (int i = 24; i<52; i++)
+				aRecv[i] = aRecv[i+2];
+			
+		}break;
+
+	case 0xF6://New S5 Packet
+		{
+			BYTE Packet3[6]={0xC1,0x05,0xF6,0x0F,0x255,0x00};
+			BYTE Packet4[6]={0xC1,0x05,0xF7,0x0F,0x255,0x00};
+			BYTE pNewProtocol[0x05]={0xC1,0x05,0x18,0x01,0x7A};
+			DataRecv(RecvTable[pNewProtocol[2]], pNewProtocol, pNewProtocol[1], aIndex, Encrypt, Serial );
+			//SCFPanelInfoSend(aIndex);
+			//	return true;
+
+			Log.outError("Season 5 Quest System");
+			DataSend(aIndex, &Packet3[0], Packet3[1]);
+			return true;
+		}
 		break;
+
+	case 0x8E: //S5 Warp Menu Fix
+			if(gObj->m_iDuelUser == -1)
+			{
+			g_MoveReq.Teleport(aIndex,aRecv[8]);
+			}
+			return true;
+		break;
+	case 0x24: //Panda Fix (Equip Guardian)
+
+			if(aRecv[4] == RING_01 || aRecv[4] == RING_02)
+				{
+					if(gObj->m_Change == 14) //SKeleton Ring
+					{
+						gObj->m_Change = -1;
+						gObjViewportListProtocolCreate(gObj);
+					}
+				}
+	break;
+
+	case 0x86: // Chaos Machine (New Wing Mix)
+		ChaosboxCombinationEx(aIndex,aRecv[3]);
+	break;
 		//IN WORK - Imperial Guardian and Double Goer EVENT PROTOCOLS
 		/*	case 0xF7:		
 			Imperial.CheckCanEnter(aIndex);
@@ -506,159 +659,7 @@ bool ProtocolCore(BYTE protoNum,LPBYTE aRecv,DWORD aLen,DWORD aIndex,DWORD Encry
 				}
 			}
 		break; */
-#endif
-				}
-			}
-		
-			else if(Config.IsProtocol==1) //JPN
-			{
-				switch(BYTE(protoNum))
-				{
-					/*
-					case 0xD7:
-						protoNum = 0xD7;
-						aRecv[2] = 0xD7;
-						break;
-						*/
-					case 0xD0:
-						if(aRecv[1]== 0x04&&aRecv[3] == 0x06)
-						{
-							PCPoint.OpenShop(aIndex);
-							return true;
-						}
-						if(aRecv[3] == 0x05)
-						{
-							PCPoint.BuyItem(aIndex,aRecv[4]);
-							return true;
-						}
-						break;
-				}
-			}
-			else if(Config.IsProtocol == 2) //VTM
-			{
-				switch(BYTE(protoNum))
-				{
-					case 0x10:
-						protoNum = 0xD7;
-						aRecv[2] = 0xD7;
-						break;
-				}
-			}
 
-			else if(Config.IsProtocol == 3) //ENG
-			{
-				switch(BYTE(protoNum))
-				{
-					case 0xDB:
-						protoNum = 0xD7;
-						aRecv[2] = 0xD7;
-						break;
-				}
-			}
-
-			else if(Config.IsProtocol == 4) //CHS
-			{
-				switch(BYTE(protoNum))
-				{
-				case 0x1D:
-					protoNum = 0xD7;
-					aRecv[2] = 0xD7;
-					break;
-				}
-			}
-			break;
-	}
-
-
-		switch(BYTE(protoNum))
-		{
-			case 0x00: //Move & chat Protocol
-			{
-				ChatSystem.ChatDataSend(aIndex,aRecv);				
-			}		
-			break;	
-		
-		case 0x03:
-			{
-				int Map = (int)gObj_GetMap(aIndex);
-				if(Map == 64)gObjMoveGate_JMP(aIndex, 294);
-
-				//SetPCPoint(aIndex);
-				//PCPoint.SQLGetPoints(aIndex);
-				PCPoint.GetInfo(aIndex);
-				GCServerMsgStringSend(ConnectNotice1,aIndex,0);
-				GCServerMsgStringSend(ConnectNotice2,aIndex,0);
-				GCServerMsgStringSend(ConnectNotice3,aIndex,0);
-				g_Quest.LoadQuest(aIndex);
-				conLog.ConsoleOutputDT("[%s][%s][%d] Connect.",gObj->AccountID,gObj->Name,aIndex);
-#ifdef Season5
-		if(gObj->pInventory[RING_01].m_Type == 0x1A7A || gObj->pInventory[RING_02].m_Type == 0x1A7A) //SKeleton Ring
-		{
-			gObj->m_Change = 14;
-			gObjViewportListProtocolCreate(gObj);
-		}
-
-
-				//Load Quest Pending
-				BYTE Packet3[6]={0xC1,0x05,0xF6,0x0F,0x255,0x00};
-				BYTE Packet4[6]={0xC1,0x05,0xF7,0x0F,0x255,0x00};
-
-				Log.outError("Season 5 Quest System");
-				DataSend(aIndex, &Packet3[0], Packet3[1]);
-				DataSend(aIndex, &Packet4[0], Packet4[1]);
-		
-#endif
-			
-			}
-			break;
-#ifdef Season5
-			
-
-	//case 0x06:
-	//	CGLevelUpPointAdd((PMSG_LVPOINTADD *)aRecv, aIndex);
-	//	break;
-	case 0xF1://Login protocol (Season 5)
-		{
-			aRecv[1] -= 0x02;
-			aLen = aRecv[1];
-			for (int i = 24; i<52; i++)
-				aRecv[i] = aRecv[i+2];
-			
-		}break;
-
-	case 0xF6://New S5 Packet
-		{
-			BYTE Packet3[6]={0xC1,0x05,0xF6,0x0F,0x255,0x00};
-			BYTE Packet4[6]={0xC1,0x05,0xF7,0x0F,0x255,0x00};
-			BYTE pNewProtocol[0x05]={0xC1,0x05,0x18,0x01,0x7A};
-			DataRecv(RecvTable[pNewProtocol[2]], pNewProtocol, pNewProtocol[1], aIndex, Encrypt, Serial );
-			//SCFPanelInfoSend(aIndex);
-			//	return true;
-
-			Log.outError("Season 5 Quest System");
-			DataSend(aIndex, &Packet3[0], Packet3[1]);
-			return true;
-		}
-		break;
-
-	case 0x8E: //S5 Warp Menu Fix
-			if(gObj->m_iDuelUser == -1)
-			{
-			g_MoveReq.Teleport(aIndex,aRecv[8]);
-			}
-			return true;
-		break;
-	case 0x24: //Panda Fix (Equip Guardian)
-
-			if(aRecv[4] == RING_01 || aRecv[4] == RING_02)
-				{
-					if(gObj->m_Change == 14) //SKeleton Ring
-					{
-						gObj->m_Change = -1;
-						gObjViewportListProtocolCreate(gObj);
-					}
-				}
-	break;
 #endif
 		case 0x30:
 		    NPCTalkEx(aIndex, (aRecv[4] + aRecv[3] * 256));

@@ -98,3 +98,11 @@ int Random(int min,int max) ;
 
 void DataSendNear (int Map,int X,int Y, PBYTE Protocol , DWORD ProtocolLen, int dist);
 void QuestSay(int aIndex,const char *Format,...);
+
+
+int gObjDeleteItemsCount(int aIndex, short Type, short Level, int Count);
+int gObjGetItemCountInInventory(int aIndex, int ItemID,int ItemLevel);
+int gObjCheckPaperCountInInventory(DWORD PlayerID);
+int UserCountInMap(BYTE Map);
+UINT GetMap(DWORD PlayerID);
+

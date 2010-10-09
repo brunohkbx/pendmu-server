@@ -58,6 +58,75 @@ int gObjGetItemCountInChaosbox(int aIndex, short type) {
 }
 
 
+int gObjCheckPaperCountInInventory(DWORD PlayerID)
+{
+	GOBJSTRUCT * gObj = (GOBJSTRUCT*)(PlayerID*gObjSize + gObjOffset);
+	
+	int count = 0;
+	
+	for(unsigned i = 0; i < 76; i++)
+	{
+		if(gObj->pInventory[i].m_Type == 0x1c65 && gObj->pInventory[i].m_Level == 0)
+			count++;
+	}
+	return count;
+}
+
+int gObjGetItemCountInInventory(int aIndex, int ItemID,int ItemLevel)
+{
+	GOBJSTRUCT * gObj = (GOBJSTRUCT*)(aIndex*gObjSize + gObjOffset);
+	int Count = 0;
+	for (int i = 0; i < 76; i++)
+	{
+		if (gObj->pInventory[i].m_Type == ItemID && gObj->pInventory[i].m_Level == ItemLevel)
+			Count++;
+	}
+	return Count;
+}
+int gObjDeleteItemsCount(int aIndex, short Type, short Level, int Count) {
+	int count = 0;
+	
+	GOBJSTRUCT * gObj = (GOBJSTRUCT*)(aIndex*gObjSize + gObjOffset);
+	for(unsigned i = 0; i < 76; i++)
+	{
+		if(gObj->pInventory[i].m_Type == Type && gObj->pInventory[i].m_Level == Level)
+		{
+			gObjInventoryDeleteItem(aIndex, i);
+			GCInventoryItemDeleteSend(aIndex, i, 1);
+			count++;
+
+			if(Count == count)
+				break;
+		}
+	}
+	return count;
+}
+UINT GetMap(DWORD PlayerID)
+{
+	UINT result=0;
+	if ((PlayerID>=MIN_PLAYERID)&&(PlayerID<MAX_PLAYERID))
+	{
+		GOBJSTRUCT *gObj = (GOBJSTRUCT*)OBJECT_POINTER(PlayerID);
+		result=gObj->MapNumber;
+	}
+	return result;
+}
+int UserCountInMap(BYTE Map)
+{
+	int Count=0;
+	DWORD PlayerID = MIN_PLAYERID;
+	do
+	{
+		if(IsOnGame(PlayerID))
+		{
+			if(GetMap(PlayerID) == Map)
+			{				
+				Count++;
+			}
+		}
+	}while(++PlayerID<=MAX_PLAYERID);	
+	return Count;
+}
 
 #endif
 
