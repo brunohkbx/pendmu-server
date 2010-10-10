@@ -132,7 +132,7 @@ extern "C" _declspec(dllexport) void Load()
 	DWORD OldProtect;
 	if(VirtualProtect(LPVOID(GS_BASE),3604479,PAGE_EXECUTE_READWRITE,&OldProtect))//3543191 
 	{
-		CheckMAC();
+		//CheckMAC();
 		//SetUp console
 		LoadIni(); //Load Ini config
 		IniciaIni(); //Load Ini config
