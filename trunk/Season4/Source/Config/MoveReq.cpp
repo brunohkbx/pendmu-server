@@ -157,7 +157,7 @@ void CMoveSystem::LoadGate(char *filename)
 	}
 
 	fclose(SMDFile);
-	Log.outNormal("[Pendulum] File [%s] is Loaded",filename); 
+	conLog.ConsoleOutput("[Pendulum] File [%s] is Loaded",filename); 
 	return;
 }
 

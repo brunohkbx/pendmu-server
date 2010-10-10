@@ -5,7 +5,7 @@
 #include <windows.h>
 
 #define MAX_MOVES 255
-#define MAX_GATES 300
+#define MAX_GATES 334
 
 struct MOVEINFODATA
 {
